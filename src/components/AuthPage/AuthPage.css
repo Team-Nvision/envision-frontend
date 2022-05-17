@@ -1,0 +1,19 @@
+.AuthPage {
+  height: 100%;
+  justify-content: space-between;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 400px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 3px;
+  padding-bottom: 0px;
+}
+
+.AuthPage span {
+  color: black;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
