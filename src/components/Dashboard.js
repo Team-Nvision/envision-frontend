@@ -24,7 +24,7 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import FormGroup from '@mui/material/FormGroup';
 
-
+// delete me!
 // const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -73,13 +73,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
-  
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
-  const [text, setText] = useState({entry:''});
+  const [text, setText] = useState({ entry: '' });
 
-  
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -91,25 +91,25 @@ export default function PersistentDrawerLeft() {
   // const onTextChange = e => {
   //   setText({...text, [e.target.name]: e.target.value})
   // }
-  
+
 
   const handleSpeech = (e) => {
     e.preventDefault();
     const msg = new SpeechSynthesisUtterance();
-    const voices = window.speechSynthesis.getVoices(); 
+    const voices = window.speechSynthesis.getVoices();
     // const {entry} = text;
     msg.voice = voices[9];
     msg.volume = 1
     msg.text = text;
     console.log(text)
-    window.speechSynthesis.speak(msg); 
+    window.speechSynthesis.speak(msg);
   }
 
   const handleText = (e) => {
-    e.preventDefault(); 
-      const str = text;
-      let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
-      console.log(result);
+    e.preventDefault();
+    const str = text;
+    let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
+    console.log(result);
   }
 
   return (
@@ -179,40 +179,40 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
         <DrawerHeader />
         <Typography paragraph>
-        <FormGroup onSubmit={handleSpeech}
->
-        <Box
-      
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField
-          id="outlined-multiline-static"
-          label="Enter the paragraph here!"
-          multiline
-          rows={4}
-          value={text.entry}
-          onChange = {e => setText(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          type= 'submit'
+          <FormGroup onSubmit={handleSpeech}
           >
-          Speak
-        </Button>
-        <Button 
-        variant="contained"
-        type= 'submit'
-        onClick={handleText}>
-          Break
-        </Button>
-        </Box>
-        </FormGroup>
+            <Box
+
+              component="form"
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '25ch' },
+
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-multiline-static"
+                label="Enter the paragraph here!"
+                multiline
+                rows={4}
+                value={text.entry}
+                onChange={e => setText(e.target.value)}
+              />
+              <Button
+                variant="contained"
+                type='submit'
+              >
+                Speak
+              </Button>
+              <Button
+                variant="contained"
+                type='submit'
+                onClick={handleText}>
+                Break
+              </Button>
+            </Box>
+          </FormGroup>
           {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
           enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
