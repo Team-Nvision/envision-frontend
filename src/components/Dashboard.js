@@ -1,208 +1,234 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-// import Chart from './Chart';
-// import Deposits from './Deposits';
-// import Orders from './Orders';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import { useState } from 'react';
+import FormGroup from '@mui/material/FormGroup';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }),
+);
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
+  transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
 
-const mdTheme = createTheme();
+export default function PersistentDrawerLeft() {
+  
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
-function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
+  const [text, setText] = useState({entry:''});
+
+  
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
-  return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
-          </List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  {/* <Chart /> */}
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  {/* <Deposits /> */}
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  {/* <Orders /> */}
-                </Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
-        </Box>
-      </Box>
-    </ThemeProvider>
-  );
-}
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
-export default function Dashboard() {
-  return <DashboardContent />;
+  // const onTextChange = e => {
+  //   setText({...text, [e.target.name]: e.target.value})
+  // }
+  
+
+  const handleSpeech = (e) => {
+    e.preventDefault();
+    const msg = new SpeechSynthesisUtterance();
+    const voices = window.speechSynthesis.getVoices(); 
+    // const {entry} = text;
+    msg.voice = voices[9];
+    msg.volume = 1
+    msg.text = text;
+    console.log(text)
+    window.speechSynthesis.speak(msg); 
+  }
+
+  const handleText = (e) => {
+    e.preventDefault(); 
+      const str = text;
+      let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
+      console.log(result);
+  }
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Envision
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Paragraph Block-break', 'Text-to-Speech'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['place-holder'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        <Typography paragraph>
+        <FormGroup onSubmit={handleSpeech}
+>
+        <Box
+      
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+          id="outlined-multiline-static"
+          label="Enter the paragraph here!"
+          multiline
+          rows={4}
+          value={text.entry}
+          onChange = {e => setText(e.target.value)}
+        />
+        <Button
+          variant="contained"
+          type= 'submit'
+          >
+          Speak
+        </Button>
+        <Button 
+        variant="contained"
+        type= 'submit'
+        onClick={handleText}>
+          Break
+        </Button>
+        </Box>
+        </FormGroup>
+          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac. */}
+        </Typography>
+        <Typography paragraph>
+        </Typography>
+      </Main>
+    </Box>
+  );
 }
