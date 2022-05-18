@@ -26,6 +26,7 @@ import FormGroup from '@mui/material/FormGroup';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import RenderCard from './RenderCard';
 
 const drawerWidth = 240;
 
@@ -99,37 +100,40 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const msg = new SpeechSynthesisUtterance();
     const voices = window.speechSynthesis.getVoices();
-    const {entry} = text;
-    msg.voice = voices[9];
+    const { entry } = text;
+    msg.voice = voices[8];
     msg.volume = 1
     msg.text = text;
     console.log(text)
     window.speechSynthesis.speak(msg);
   }
 
-  const handleText = (e) => {
+  function handleText(e) {
     e.preventDefault();
     const str = text;
     let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
     console.log(result);
-    <div>
-    {result.map((results, index) => {
-      <p>{results}</p>
-    
-  }) 
+    // console.log(result);
+    // { <div>Test</div> }
+    // {
+    //   result.map((results, index) => {
+    //     return (
+    //       <Box key={index}>
+    //         <Card>
+    //           <CardContent>
+    //             <Typography>
+    //               {results}
+    //             </Typography>
+    //           </CardContent>
+    //           {console.log(results)}
+    //         </Card>
+    //       </Box>
+    //     )
+    //   })
+    // }
   }
-    </div>
-}
-//   return (
-    //   <Card>
-    //     <CardContent>
-    //       <Typography>
-    //       {results}
-    //       </Typography>
-    //     </CardContent>
-    //     {console.log(results)}
-    //   </Card>
-    // )
+
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -196,7 +200,6 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography paragraph>
           <FormGroup onSubmit={handleSpeech}
           >
             <Box
@@ -223,30 +226,35 @@ export default function PersistentDrawerLeft() {
               >
                 Speak
               </Button>
+              </Box>
+              </FormGroup>
+              <FormGroup onSubmit={handleText}
+          >
+            <Box
+              component="form"
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="outlined-multiline-static"
+                label="Enter the paragraph here!"
+                multiline
+                rows={12}
+                value={text.entry}
+                onChange={e => setText(e.target.value)}
+              />
               <Button
                 variant="contained"
                 type='submit'
-                onClick={handleText}
-                >
+              >
                 Break
               </Button>
-            </Box>
-          </FormGroup>
-          {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac. */}
-        </Typography>
-        <Typography paragraph>
-        </Typography>
+              </Box>
+            </FormGroup>
+            <RenderCard text={text} />
       </Main>
     </Box>
   );
