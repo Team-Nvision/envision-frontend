@@ -27,6 +27,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import RenderCard from './RenderCard';
+import { Container } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -82,6 +83,9 @@ export default function PersistentDrawerLeft() {
 
   const [text, setText] = useState({ entry: '' });
 
+  const [paragraph, setParagraph] = useState([])
+
+  const [result, setResult] = useState([])
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -91,6 +95,9 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const handleChange = (e) => {
+    setParagraph(e.target.value);
+  }
   // const onTextChange = e => {
   //   setText({...text, [e.target.name]: e.target.value})
   // }
@@ -110,27 +117,14 @@ export default function PersistentDrawerLeft() {
 
   function handleText(e) {
     e.preventDefault();
-    const str = text;
-    let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
+
+    const str = paragraph;
+    setResult(str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g))
     console.log(result);
+    
     // console.log(result);
     // { <div>Test</div> }
-    // {
-    //   result.map((results, index) => {
-    //     return (
-    //       <Box key={index}>
-    //         <Card>
-    //           <CardContent>
-    //             <Typography>
-    //               {results}
-    //             </Typography>
-    //           </CardContent>
-    //           {console.log(results)}
-    //         </Card>
-    //       </Box>
-    //     )
-    //   })
-    // }
+    
   }
 
 
@@ -243,8 +237,8 @@ export default function PersistentDrawerLeft() {
                 label="Enter the paragraph here!"
                 multiline
                 rows={12}
-                value={text.entry}
-                onChange={e => setText(e.target.value)}
+                value={paragraph}
+                onChange={handleChange}
               />
               <Button
                 variant="contained"
@@ -254,7 +248,9 @@ export default function PersistentDrawerLeft() {
               </Button>
               </Box>
             </FormGroup>
-            <RenderCard text={text} />
+            <RenderCard result={result} setResult={setResult}
+              />
+            
       </Main>
     </Box>
   );

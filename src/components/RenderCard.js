@@ -1,17 +1,22 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
+    
 function RenderCard(props) {
-    return (
-    <Box>
-        <Card>
-        <CardContent>
-        <Typography>
-          This is A Test{props.text} 
-        </Typography>
-        </CardContent>
-        </Card>
-    </Box>
+    return ( props.result.map((results, index) => {
+            return (
+                <Box key={index}>
+                <Card >
+                <CardContent sx={{backgroundColor:'#2979ff'}}>
+                <Typography>
+                {results}
+                </Typography>
+                </CardContent>
+                {console.log(results)}
+                </Card>
+                </Box>
+            )
+            })
     );
 }
 
