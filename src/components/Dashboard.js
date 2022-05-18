@@ -175,7 +175,7 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Paragraph Block-break', 'Text-to-Speech'].map((text, index) => (
+          {['Paragraph Break-Down', 'Text-to-Speech'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -200,32 +200,31 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={open}
+        sx={{
+          mx:'auto',
+        }}
+      >
         <DrawerHeader />
           <FormGroup onSubmit={handleSpeech}
           >
             <Box
               component="form"
               sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                '& .MuiTextField-root': { m: 1, width: '100ch',
+                mx: 'auto',
+              },
               }}
               noValidate
               autoComplete="off"
             >
-              <TextField
-                id="outlined-multiline-static"
-                // label="Enter the paragraph here!"
-                multiline
-                rows={12}
-                placeholder="Enter here!"
-                value={text.entry}
-                onChange={e => setText(e.target.value)}
-              />
               <Button
                 variant="contained"
                 type='submit'
                 sx={{
-                  backgroundColor: '#88CFEB'
+                  backgroundColor: '#88CFEB',
+                  p: 1,
+                  m: 1,
                 }}
               >
                 Speak
@@ -235,11 +234,25 @@ export default function PersistentDrawerLeft() {
                 type='submit'
                 onClick={handleText}
                 sx={{
-                  backgroundColor: '#88CFEB'
+                  backgroundColor: '#88CFEB',
+                  p: 1,
+                  m: 1,
                 }}
               >
-                Break
+                Break Down
               </Button>
+              <TextField
+                id="outlined-multiline-static"
+                // label="Enter the paragraph here!"
+                multiline
+                rows={12}
+                placeholder="Enter here!"
+                value={text.entry}
+                onChange={e => setText(e.target.value)}
+                sx={{
+                  mx: 'auto',
+                }}
+              />
               </Box>
               </FormGroup>
             <RenderCard result={result} setResult={setResult}
