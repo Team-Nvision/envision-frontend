@@ -107,11 +107,10 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const msg = new SpeechSynthesisUtterance();
     const voices = window.speechSynthesis.getVoices();
-    const { entry } = text;
-    msg.voice = voices[8];
+    // const { entry } = text;
+    msg.voice = voices[0];
     msg.volume = 1
     msg.text = text;
-    console.log(text)
     window.speechSynthesis.speak(msg);
   }
 
@@ -133,6 +132,7 @@ export default function PersistentDrawerLeft() {
       display: 'flex',
       mx: 'auto',
       p: 3,
+      width:'65%'
       }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}
