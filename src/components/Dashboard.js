@@ -118,7 +118,7 @@ export default function PersistentDrawerLeft() {
   function handleText(e) {
     e.preventDefault();
 
-    const str = paragraph;
+    const str = text;
     setResult(str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g))
     console.log(result);
     
@@ -129,9 +129,17 @@ export default function PersistentDrawerLeft() {
 
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ 
+      display: 'flex',
+      mx: 'auto',
+      p: 3,
+      }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open}
+      sx={{
+        backgroundColor: '#88CFEB'
+      }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -197,57 +205,43 @@ export default function PersistentDrawerLeft() {
           <FormGroup onSubmit={handleSpeech}
           >
             <Box
-
               component="form"
               sx={{
                 '& .MuiTextField-root': { m: 1, width: '25ch' },
-
               }}
               noValidate
               autoComplete="off"
             >
               <TextField
                 id="outlined-multiline-static"
-                label="Enter the paragraph here!"
+                // label="Enter the paragraph here!"
                 multiline
                 rows={12}
+                placeholder="Enter here!"
                 value={text.entry}
                 onChange={e => setText(e.target.value)}
               />
               <Button
                 variant="contained"
                 type='submit'
+                sx={{
+                  backgroundColor: '#88CFEB'
+                }}
               >
                 Speak
               </Button>
-              </Box>
-              </FormGroup>
-              <FormGroup onSubmit={handleText}
-          >
-            <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="outlined-multiline-static"
-                label="Enter the paragraph here!"
-                multiline
-                rows={12}
-                value={paragraph}
-                onChange={handleChange}
-              />
               <Button
                 variant="contained"
                 type='submit'
+                onClick={handleText}
+                sx={{
+                  backgroundColor: '#88CFEB'
+                }}
               >
                 Break
               </Button>
               </Box>
-            </FormGroup>
+              </FormGroup>
             <RenderCard result={result} setResult={setResult}
               />
             

@@ -6,8 +6,14 @@ function RenderCard(props) {
     return ( props.result.map((results, index) => {
             return (
                 <Box key={index}>
-                <Card >
-                <CardContent sx={{backgroundColor:'#2979ff'}}>
+                <Card sx={{ 
+                backgroundColor:'#FFFFF5',
+                p: 1,
+                mx: 'auto',
+                my: 2,
+                elevation: 20,
+                }}>
+                <CardContent >
                 <Typography>
                 {results}
                 </Typography>
