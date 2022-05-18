@@ -27,7 +27,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import RenderCard from './RenderCard';
-import { Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -200,6 +200,11 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
       </Drawer>
+    <Grid container
+  direction="row"
+  justifyContent="flex-end"
+  alignItems="center"
+    >
       <Main open={open}
         sx={{
           mx:'auto',
@@ -257,8 +262,8 @@ export default function PersistentDrawerLeft() {
               </FormGroup>
             <RenderCard result={result} setResult={setResult}
               />
-            
       </Main>
+      </Grid>
     </Box>
   );
 }
