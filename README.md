@@ -7,7 +7,7 @@ This is an app that helps people with ADHD and neurodivergent people focus by gi
 
 
 Runs the app in the development mode.
-[https://nvisiontools.netlify.app/](Click here!) to view it in your browser.
+[https://nvisiontools.netlify.app/] (Click here!) to view it in your browser.
 
 
 ### `Languages and Tools`
