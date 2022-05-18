@@ -111,27 +111,25 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const str = text;
     let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
-    // console.log(result);
-    {<div>Test</div>}
-    {result.map((results) => {
-      return (
-      <Card>
-        <CardContent>
-          <Typography>
-          {results}
-          </Typography>
-        </CardContent>
-        {console.log(results)}
-      </Card>
-    )})
+    console.log(result);
+    <div>
+    {result.map((results, index) => {
+      <p>{results}</p>
+    
+  }) 
   }
-  <Box>
-  <Typography>
-    {result}
-  </Typography>
-  </Box>
+    </div>
 }
-
+//   return (
+    //   <Card>
+    //     <CardContent>
+    //       <Typography>
+    //       {results}
+    //       </Typography>
+    //     </CardContent>
+    //     {console.log(results)}
+    //   </Card>
+    // )
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
