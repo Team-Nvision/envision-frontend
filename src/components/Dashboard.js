@@ -99,8 +99,8 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const msg = new SpeechSynthesisUtterance();
     const voices = window.speechSynthesis.getVoices();
-    const {entry} = text;
-    msg.voice = voices[9];
+    const { entry } = text;
+    msg.voice = voices[8];
     msg.volume = 1
     msg.text = text;
     console.log(text)
@@ -111,26 +111,28 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const str = text;
     let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
-    // console.log(result);
-    {<div>Test</div>}
-    {result.map((results) => {
-      return (
-      <Card>
-        <CardContent>
-          <Typography>
-          {results}
-          </Typography>
-        </CardContent>
-        {console.log(results)}
-      </Card>
-    )})
+    console.log(result);
+    { <div>Test</div> }
+    {
+      result.map((results, idx) => {
+        return (
+          <Card>
+            <CardContent>
+              <Typography results={results} idx={idx}>
+                {results}{idx}
+              </Typography>
+            </CardContent>
+            {console.log(results, idx)}
+          </Card>
+        )
+      })
+    }
+    <Box>
+      <Typography>
+        {result}
+      </Typography>
+    </Box>
   }
-  <Box>
-  <Typography>
-    {result}
-  </Typography>
-  </Box>
-}
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -229,7 +231,7 @@ export default function PersistentDrawerLeft() {
                 variant="contained"
                 type='submit'
                 onClick={handleText}
-                >
+              >
                 Break
               </Button>
             </Box>
