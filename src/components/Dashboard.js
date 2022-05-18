@@ -23,9 +23,11 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import FormGroup from '@mui/material/FormGroup';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
-// delete me!
-// const drawerWidth = 240;
+const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -97,7 +99,7 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const msg = new SpeechSynthesisUtterance();
     const voices = window.speechSynthesis.getVoices();
-    // const {entry} = text;
+    const {entry} = text;
     msg.voice = voices[9];
     msg.volume = 1
     msg.text = text;
@@ -109,8 +111,26 @@ export default function PersistentDrawerLeft() {
     e.preventDefault();
     const str = text;
     let result = str.match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
-    console.log(result);
+    // console.log(result);
+    {<div>Test</div>}
+    {result.map((results) => {
+      return (
+      <Card>
+        <CardContent>
+          <Typography>
+          {results}
+          </Typography>
+        </CardContent>
+        {console.log(results)}
+      </Card>
+    )})
   }
+  <Box>
+  <Typography>
+    {result}
+  </Typography>
+  </Box>
+}
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -195,7 +215,7 @@ export default function PersistentDrawerLeft() {
                 id="outlined-multiline-static"
                 label="Enter the paragraph here!"
                 multiline
-                rows={4}
+                rows={12}
                 value={text.entry}
                 onChange={e => setText(e.target.value)}
               />
@@ -208,7 +228,8 @@ export default function PersistentDrawerLeft() {
               <Button
                 variant="contained"
                 type='submit'
-                onClick={handleText}>
+                onClick={handleText}
+                >
                 Break
               </Button>
             </Box>
